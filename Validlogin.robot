@@ -4,19 +4,24 @@ Library          SeleniumLibrary
 Suite Teardown   Close All Browsers
 
 
+
+
 *** Test Cases ***
 Valid login test
     [Tags]    Ola
-   Open Browser  http://automationpractice.com/index.php?  chrome
-   Click Element  class:login
-   Input Text  id:email  arabataofikolasile@gmail.com
-   Input Text  id:passwd  Farayola
-   Click Element  xpath://*[@id="SubmitLogin"]/span
-   Page Should Contain  Taofik Araba
+    [Template]  Login Test
+    ${SIGN_IN_LINK}   arabataofikolasile@gmail.com  Farayola  ${LOGINBUTTON}  Taofik Araba
+
+   #Open Browser  http://automationpractice.com/index.php?  chrome   #basic selenium driven approach
+   #Click Element  class:login
+   #Input Text  id:email  arabataofikolasile@gmail.com
+   #Input Text  id:passwd  Farayola
+   #Click Element  xpath://*[@id="SubmitLogin"]/span
+   #Page Should Contain  Taofik Araba
    #[Teardown]  Close Browser
 
 
-Invalid login test
+Invalid login test                      #basic selenium driven approach
     [Tags]    DEBUG
    Open Browser  http://automationpractice.com/index.php?  chrome
    Click Element  class:login
@@ -27,7 +32,7 @@ Invalid login test
    #[Teardown]  Close Browser
 
 
-Invalid login test2
+Invalid login test2                 #basic selenium driven approach
     [Tags]    DEBUG
    Open Browser  http://automationpractice.com/index.php?  chrome
    Click Element  class:login
@@ -38,7 +43,7 @@ Invalid login test2
    #[Teardown]  Close Browser
 
 
-Invalid login test3
+Invalid login test3                     #basic selenium driven approach
     [Tags]    DEBUG
    Open Browser  http://automationpractice.com/index.php?  chrome
    Click Element  class:login
@@ -49,7 +54,7 @@ Invalid login test3
    #[Teardown]  Close Browser
 
 
-Invalid login test4
+Invalid login test4                 #basic selenium driven approach
     [Tags]    DEBUG
    Open Browser  http://automationpractice.com/index.php?  chrome
    Click Element  class:login
@@ -71,7 +76,7 @@ Invalid login scenarios
 
 
 *** Keywords ***
-Invalid login credentials should return the right error message
+Invalid login credentials should return the right error message     #datadriven
   [Arguments]  ${username_email}  ${password}  ${error_message}     #itsCalled localvariable
     Open Browser  http://automationpractice.com/index.php?  chrome
    Click Element  class:login
@@ -79,3 +84,13 @@ Invalid login credentials should return the right error message
    Input Text  id:passwd  ${password}
    Click Element  xpath://*[@id="SubmitLogin"]/span
    Page Should Contain  ${error_message}
+
+
+Login test
+    [Arguments]  ${signinlink}  ${username_email}  ${password}  ${loginbutton}  ${signed_inuser}  #datadriven
+    Open Browser  http://automationpractice.com/index.php?  chrome
+   Click Element  class:login
+   Input Text  id:email  ${username_email}
+   Input Text  id:passwd  ${password}
+   Click Element  xpath://*[@id="SubmitLogin"]/span
+   Page Should Contain  ${signed_inuser}
