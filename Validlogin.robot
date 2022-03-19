@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation    Basic robotfarmework tests
 Library          SeleniumLibrary
+Resource         project_keywords.robot
 Suite Teardown   Close All Browsers
 
 
@@ -11,6 +12,14 @@ Valid login test
     [Tags]    Ola
     [Template]  Login Test
     ${SIGN_IN_LINK}   arabataofikolasile@gmail.com  Farayola  ${LOGINBUTTON}  Taofik Araba
+
+Valid login test2
+    [Tags]    Ola2
+    Navigate to login page
+    Enter valid login credentials  arabataofikolasile@gmail.com  Farayola
+    Click login button and assert login
+
+
 
    #Open Browser  http://automationpractice.com/index.php?  chrome   #basic selenium driven approach
    #Click Element  class:login
@@ -86,11 +95,11 @@ Invalid login credentials should return the right error message     #datadriven
    Page Should Contain  ${error_message}
 
 
-Login test
-    [Arguments]  ${signinlink}  ${username_email}  ${password}  ${loginbutton}  ${signed_inuser}  #datadriven
-    Open Browser  http://automationpractice.com/index.php?  chrome
-   Click Element  class:login
-   Input Text  id:email  ${username_email}
-   Input Text  id:passwd  ${password}
-   Click Element  xpath://*[@id="SubmitLogin"]/span
-   Page Should Contain  ${signed_inuser}
+#Login test
+    #[Arguments]  ${signinlink}  ${username_email}  ${password}  ${loginbutton}  ${signed_inuser}  #datadriven
+    #Open Browser  http://automationpractice.com/index.php?  chrome
+   #Click Element  class:login
+   #Input Text  id:email  ${username_email}
+   #Input Text  id:passwd  ${password}
+   #Click Element  xpath://*[@id="SubmitLogin"]/span
+   #Page Should Contain  ${signed_inuser}
